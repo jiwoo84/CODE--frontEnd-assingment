@@ -1,5 +1,4 @@
-import Table from '@/components/Table'
-import useFetchData from '@/hooks/useFetchData'
+import Table from '@/components/ExchangesTable'
 import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
@@ -9,7 +8,6 @@ export default function Document() {
       <Head />
       <body>
         <Main />
-        <Table />
         <NextScript />
       </body>
     </Html>
