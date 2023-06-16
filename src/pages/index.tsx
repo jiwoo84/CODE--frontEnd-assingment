@@ -1,12 +1,12 @@
-import { Inter } from 'next/font/google'
+import { RecoilRoot } from 'recoil'
 import Table from '../components/ExchangesTable'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
     <>
-      <Table />
+      <RecoilRoot>
+        <Table />
+      </RecoilRoot>
     </>
   )
 }
