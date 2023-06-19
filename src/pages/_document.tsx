@@ -1,4 +1,3 @@
-import Table from '@/components/ExchangesTable'
 import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {

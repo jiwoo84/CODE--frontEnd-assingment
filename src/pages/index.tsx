@@ -1,12 +1,13 @@
 import { RecoilRoot } from 'recoil'
-import Table from '../components/ExchangesTable'
+import App from './App';
 
-export default function Home() {
+export default function index() {
+
   return (
-    <>
+    <div>
       <RecoilRoot>
-        <Table />
+        <App />
       </RecoilRoot>
-    </>
+    </div>
   )
 }

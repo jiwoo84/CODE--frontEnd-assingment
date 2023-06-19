@@ -1,5 +1,6 @@
-import Ticker from "@/types/Ticker";
 import { atom } from "recoil";
+
+import Ticker from "@/types/Ticker";
 
 export const isModalOpenState = atom<boolean>({
     key: 'isModalOpenState',

@@ -1,22 +1,19 @@
 import Image from "next/image";
 
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 import Exchange from "@/types/Exchange";
 
-import { modalContentState } from "@/atoms/modalState";
 import useFetchData from "@/hooks/useFetchData";
+
+import { isModalOpenState, modalContentState } from "@/atoms/modalState";
 
 interface ExchangeRowProps {
     exchange: Exchange;
     index: number;
-    isModalOpen: boolean;
-    setIsModalOpen: (state: boolean) => void;
 }
 
-export default function ExchangeRow(
-    { exchange, index, isModalOpen, setIsModalOpen }: ExchangeRowProps
-) {
+export default function ExchangeRow({ exchange, index }: ExchangeRowProps) {
     const {
         id,
         name,
@@ -26,32 +23,34 @@ export default function ExchangeRow(
         trade_volume_24h_btc_normalized: trade_volume
     } = exchange;
 
-    const [_, setModalContent] = useRecoilState(modalContentState);
+    const setIsModalOpen = useSetRecoilState(isModalOpenState);
+    const setModalContent = useSetRecoilState(modalContentState);
 
     const handleClickRow = async () => {
-        setIsModalOpen(!isModalOpen);
-
-        if (isModalOpen) {
-            setModalContent([]);
-            return;
-        }
-
+        setIsModalOpen(true);
         const { tickers } = await useFetchData(`/${id}`);
         setModalContent(tickers);
     }
 
     return (
-        <>
-            <tr onClick={handleClickRow}>
-                <td>{index + 1}</td>
-                <td>
-                    <Image src={image} alt={name} width="20" height="20" />
-                    <span>{name}</span>
-                </td>
-                <td>{trust_score}</td>
-                <td>{trading_incentive ? '있음' : '없음'}</td>
-                <td>{trade_volume}</td>
-            </tr>
-        </>
+        <tr
+            onClick={handleClickRow}
+            className='h-10 border-2'
+        >
+            <td className='border-2'>{index + 1}</td>
+            <td className='flex items-center'>
+                <Image
+                    src={image}
+                    alt={name}
+                    width="20"
+                    height="20"
+                    className="m-2"
+                />
+                <p className="font-bold">{name}</p>
+            </td>
+            <td className='border-2'>{trust_score}</td>
+            <td className='border-2'>{trading_incentive ? '있음' : '없음'}</td>
+            <td className='border-2'>{trade_volume}</td>
+        </tr>
     )
 }
